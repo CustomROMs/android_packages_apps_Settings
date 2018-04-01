@@ -96,4 +96,8 @@
     <string name="battery_stats_message">Battery history stats are going to be reset</string>
     <string name="ok_string">Ok</string>
 
+    <!-- System default animation -->
+    <string name="system_default_animation_title">Android P animation style</string>
+    <string name="system_default_animation_summary">Enable Android P \"Default\" animations</string>
+
 </resources>

@@ -43,4 +43,11 @@
         android:icon="@drawable/rr_list_animation"
         />
 
+    <com.android.settings.development.GlobalSettingSwitchPreference
+        android:key="system_default_animation"
+        android:title="@string/system_default_animation_title"
+        android:summary="@string/system_default_animation_summary"
+        android:icon="@drawable/rr_animations_icon"
+        android:defaultValue="false" />
+
 </PreferenceScreen>

@@ -48,10 +48,12 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
     private static final String SCROLLINGCACHE_PREF = "pref_scrollingcache";
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
     private static final String SCROLLINGCACHE_DEFAULT = "1";
+    private static final String KEY_TOAST_ANIMATION = "toast_animation";
 
     private Context mContext;
 
     private ListPreference mScrollingCachePref;
+    private ListPreference mToastAnimation;
 
     @Override
     public int getMetricsCategory() {
@@ -74,6 +76,13 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
         mScrollingCachePref.setValue(SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP,
                 SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP, SCROLLINGCACHE_DEFAULT)));
         mScrollingCachePref.setOnPreferenceChangeListener(this);
+
+        mToastAnimation = (ListPreference) findPreference(KEY_TOAST_ANIMATION);
+        mToastAnimation.setSummary(mToastAnimation.getEntry());
+        int CurrentToastAnimation = Settings.System.getInt(getContentResolver(), Settings.System.TOAST_ANIMATION, 1);
+        mToastAnimation.setValueIndex(CurrentToastAnimation);
+        mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
+        mToastAnimation.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -88,6 +97,12 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
             if (newValue != null) {
                 SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String) newValue);
             }
+            return true;
+        } else if (preference == mToastAnimation) {
+            int index = mToastAnimation.findIndexOfValue((String) newValue);
+            Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) newValue);
+            mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
+            Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;

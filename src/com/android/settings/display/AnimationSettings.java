@@ -49,11 +49,13 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
     private static final String SCROLLINGCACHE_DEFAULT = "1";
     private static final String KEY_TOAST_ANIMATION = "toast_animation";
+    private static final String FLASHLIGHT_ON_CALL = "flashlight_on_call";
 
     private Context mContext;
 
     private ListPreference mScrollingCachePref;
     private ListPreference mToastAnimation;
+    private ListPreference mFlashlightOnCall;
 
     @Override
     public int getMetricsCategory() {
@@ -83,6 +85,14 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
         mToastAnimation.setValueIndex(CurrentToastAnimation);
         mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
         mToastAnimation.setOnPreferenceChangeListener(this);
+
+        mFlashlightOnCall = (ListPreference) findPreference(FLASHLIGHT_ON_CALL);
+        int flashlightValue = Settings.System.getInt(resolver,
+                Settings.System.FLASHLIGHT_ON_CALL, 0);
+        mFlashlightOnCall.setValue(String.valueOf(flashlightValue));
+        mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
+        mFlashlightOnCall.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -103,6 +113,13 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
             Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) newValue);
             mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
             Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (preference == mFlashlightOnCall) {
+            int flashlightValue = Integer.parseInt(((String) newValue).toString());
+            Settings.System.putInt(resolver,
+                Settings.System.FLASHLIGHT_ON_CALL, flashlightValue);
+            mFlashlightOnCall.setValue(String.valueOf(flashlightValue));
+            mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
             return true;
         }
         return false;

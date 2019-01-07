@@ -3313,6 +3313,8 @@
 
         <activity android:name=".deviceinfo.Changelog" />
 
+        <activity android:name=".development.HAFRAppListActivity" />
+
         <!-- This is the longest AndroidManifest.xml ever. -->
     </application>
 </manifest>

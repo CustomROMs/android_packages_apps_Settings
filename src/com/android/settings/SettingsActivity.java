@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.support.annotation.VisibleForTesting;
@@ -158,6 +159,9 @@ public class SettingsActivity extends SettingsDrawerActivity
     private int mInitialTitleResId;
 
     private static final String MICROG_FRAGMENT = "com.android.settings.MicroGSettings";
+
+    private static final boolean mMicrogSettings =
+                SystemProperties.getBoolean("ro.microg.settings", true);
 
     private static final String[] LIKE_SHORTCUT_INTENT_ACTION_ARRAY = {
             "android.settings.APPLICATION_DETAILS_SETTINGS"
@@ -863,9 +867,11 @@ public class SettingsActivity extends SettingsDrawerActivity
 
         // Remove MicroG if not installed
         boolean microgSupported = false;
-        try {
-            microgSupported = (getPackageManager().getPackageInfo("com.google.android.gms", 0).versionCode >= 0);
-        } catch (PackageManager.NameNotFoundException e) {
+        if (mMicrogSettings) {
+            try {
+                microgSupported = (getPackageManager().getPackageInfo("com.google.android.gms", 0).versionCode >= 0);
+            } catch (PackageManager.NameNotFoundException e) {
+            }
         }
         setTileEnabled(new ComponentName(packageName,
                         Settings.MicroGActivity.class.getName()),

@@ -150,4 +150,7 @@
     <string name="flashlight_on_call_dnd">Blink flashlight only in DND mode</string>
     <string name="flashlight_on_call_always">Always blink flashlight</string>
 
+    <!-- Flashlight delay -->
+    <string name="flashlight_on_call_delay_title">Flashlight delay on call</string>
+
 </resources>

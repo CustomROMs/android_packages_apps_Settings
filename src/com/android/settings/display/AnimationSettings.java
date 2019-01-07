@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.development.CustomSeekBarPreference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,12 +51,14 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
     private static final String SCROLLINGCACHE_DEFAULT = "1";
     private static final String KEY_TOAST_ANIMATION = "toast_animation";
     private static final String FLASHLIGHT_ON_CALL = "flashlight_on_call";
+    private static final String FLASHLIGHT_DELAY = "flashlight_delay";
 
     private Context mContext;
 
     private ListPreference mScrollingCachePref;
     private ListPreference mToastAnimation;
     private ListPreference mFlashlightOnCall;
+    private CustomSeekBarPreference mFlashlightDelay;
 
     @Override
     public int getMetricsCategory() {
@@ -93,6 +96,12 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
         mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
         mFlashlightOnCall.setOnPreferenceChangeListener(this);
 
+        mFlashlightDelay = (CustomSeekBarPreference) findPreference(FLASHLIGHT_DELAY);
+        int flDelay = Settings.System.getInt(resolver,
+                Settings.System.FLASHLIGHT_DELAY, 500);
+        mFlashlightDelay.setValue(flDelay / 1);
+        mFlashlightDelay.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -120,6 +129,11 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
                 Settings.System.FLASHLIGHT_ON_CALL, flashlightValue);
             mFlashlightOnCall.setValue(String.valueOf(flashlightValue));
             mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
+            return true;
+        } else if (preference == mFlashlightDelay) {
+            int flashlightDelay = (Integer) newValue;
+            Settings.System.putInt(resolver,
+                    Settings.System.FLASHLIGHT_DELAY, flashlightDelay * 1);
             return true;
         }
         return false;

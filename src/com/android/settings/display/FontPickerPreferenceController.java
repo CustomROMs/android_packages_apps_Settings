@@ -90,4 +90,8 @@ public class FontPickerPreferenceController extends AbstractPreferenceController
             return FontInfo.getDefaultFontInfo();
         }
     }
+
+    public void stopProgress() {
+        mFontPreference.stopProgress();
+    }
 }

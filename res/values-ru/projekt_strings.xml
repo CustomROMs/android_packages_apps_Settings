@@ -18,5 +18,7 @@
    <string name="font_picker_title">Шрифт</string>
    <string name="font_subs_info">Перед использованием обязательно отключите в Substratum каждый наложенный шрифт.\nЕсли вы хотите вернуться к использованию Substratum, обязательно выберите шрифт по умолчанию (Roboto) в данных настройках.</string>
    <string name="font_picker_reboot_recommended">Для оптимальной работы,\nперезагрузите устройство</string>
+   <string name="font_picker_progress">Установка шрифта\u2026</string>
+
 </resources>
 

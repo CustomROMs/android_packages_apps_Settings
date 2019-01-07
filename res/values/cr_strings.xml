@@ -165,4 +165,8 @@
     <string name="microg_title">MicroG</string>
     <string name="microg_summary">Settings MicroG</string>
 
+    <!-- Lockscreen battery info indicator  -->
+    <string name="lockscreen_battery_info_title">Battery info</string>
+    <string name="lockscreen_battery_info_summary">Display negotiated charger max current-voltage and battery temperature on lockscreen while charging</string>
+
 </resources>

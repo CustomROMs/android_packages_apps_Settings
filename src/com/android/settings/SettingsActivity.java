@@ -157,6 +157,8 @@ public class SettingsActivity extends SettingsDrawerActivity
     private CharSequence mInitialTitle;
     private int mInitialTitleResId;
 
+    private static final String MICROG_FRAGMENT = "com.android.settings.MicroGSettings";
+
     private static final String[] LIKE_SHORTCUT_INTENT_ACTION_ARRAY = {
             "android.settings.APPLICATION_DETAILS_SETTINGS"
     };
@@ -720,6 +722,14 @@ public class SettingsActivity extends SettingsDrawerActivity
      */
     private Fragment switchToFragment(String fragmentName, Bundle args, boolean validate,
             boolean addToBackStack, int titleResId, CharSequence title, boolean withTransition) {
+        if (MICROG_FRAGMENT.equals(fragmentName)) {
+            Intent microgIntent = new Intent();
+            microgIntent.setClassName("com.google.android.gms", "org.microg.gms.ui.SettingsActivity");
+            startActivity(microgIntent);
+            finish();
+            return null;
+        }
+
         if (validate && !isValidFragment(fragmentName)) {
             throw new IllegalArgumentException("Invalid fragment for this activity: "
                     + fragmentName);
@@ -850,6 +860,16 @@ public class SettingsActivity extends SettingsDrawerActivity
                         Settings.WifiDisplaySettingsActivity.class.getName()),
                 WifiDisplaySettings.isAvailable(this), isAdmin)
                 || somethingChanged;
+
+        // Remove MicroG if not installed
+        boolean microgSupported = false;
+        try {
+            microgSupported = (getPackageManager().getPackageInfo("com.google.android.gms", 0).versionCode >= 0);
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        setTileEnabled(new ComponentName(packageName,
+                        Settings.MicroGActivity.class.getName()),
+                microgSupported, isAdmin);
 
         if (UserHandle.MU_ENABLED && !isAdmin) {
 

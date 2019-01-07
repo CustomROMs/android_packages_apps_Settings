@@ -169,4 +169,7 @@
     <string name="lockscreen_battery_info_title">Battery info</string>
     <string name="lockscreen_battery_info_summary">Display negotiated charger max current-voltage and battery temperature on lockscreen while charging</string>
 
+    <!-- Screenshot shutter sound -->
+    <string name="screenshot_shutter_sound_title">Screenshot shutter sound</string>
+
 </resources>

@@ -22,10 +22,5 @@
    <string name="filter_substratum_apps">Наложения Substratum</string>
    <string name="menu_show_substratum">Показать наложения</string>
    <string name="menu_hide_substratum">Скрыть наложения</string>
-
-   <!-- Font picker -->
-   <string name="font_picker_title">Шрифт</string>
-   <string name="font_subs_info">Перед использованием обязательно отключите в Substratum каждый наложенный шрифт.\nЕсли вы хотите вернуться к использованию Substratum, обязательно выберите шрифт по умолчанию (Roboto) в данных настройках.</string>
-   <string name="font_picker_reboot_recommended">Для оптимальной работы,\nперезагрузите устройство</string>
 </resources>
 
